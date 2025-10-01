@@ -69,7 +69,7 @@
         toggle.className = "tool-toggle";
         toggle.innerText = "[+]";
 
-        toggle.onclick = () => {
+        message.onclick = () => {
             message.classList.toggle("tool-collapsed");
             toggle.innerText = message.classList.contains("tool-collapsed") ? "[+]" : "[-]";
         };

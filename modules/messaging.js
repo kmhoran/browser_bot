@@ -1,8 +1,10 @@
-
 (function() {
-    async function streamBotResponse(backendUrl, sessionId, query, uiAppendBot) {
+    const ASSISTANT_ROLE = "ASSISTANT"
+    const TOOL_ROLE = "TOOL";
+
+    async function streamBotResponse(backendUrl, sessionId, query, uiAppendBotMsg) {
         // Insert placeholder
-        const botEl = uiAppendBot("");
+        const tempLoadingMsgElem = uiAppendBotMsg("");
         
         // Animate placeholder
         const animationFrames = ["⣾","⣽","⣻","⢿","⡿","⣟","⣯","⣷"];
@@ -11,7 +13,7 @@
 
         function animatePlaceholder() {
             if (!isStreaming) return;
-            botEl.innerText = "Thinking " + animationFrames[animIndex % animationFrames.length];
+            tempLoadingMsgElem.innerText = "Thinking " + animationFrames[animIndex % animationFrames.length];
             animIndex++;
             scrollToBottom();
             setTimeout(animatePlaceholder, 300);
@@ -35,17 +37,36 @@
                 const { done, value } = await reader.read();
                 if (done) break;
                 const chunk = decoder.decode(value, { stream: true });
-                fullText += chunk;
+                handleBotMessage(chunk, tempLoadingMsgElem);
             }
         } catch (err) {
             console.error("Error while streaming:", err);
-            fullText = `⚠️ Error: ${err.message || "Failed to connect to bot."}`;
+            handleBotMessage({
+                    role: ASSISTANT_ROLE,
+                    message: `⚠️ Error: ${err.message || "Failed to connect to bot."}`}
+                ,tempLoadingMsgElem);
         }
 
         isStreaming = false;
-        botEl.innerText = fullText.trim() || "[No response received]";
+        tempLoadingMsgElem.remove();
         scrollToBottom();
     }
+
+    function handleBotMessage(data, tempLoadingMsgElem) {
+        if (typeof data === "string") {
+            data = JSON.parse(data)
+        }
+
+        if (data.role === ASSISTANT_ROLE) {
+            const assistantMsg = UI.getNewBotMessage(data.message.trim());
+            tempLoadingMsgElem.parentNode.insertBefore(assistantMsg, tempLoadingMsgElem);
+        }
+        if (data.role === TOOL_ROLE) {
+            const toolMsg = UI.getNewToolMessage(data.message.trim())
+            tempLoadingMsgElem.parentNode.insertBefore(toolMsg, tempLoadingMsgElem);
+        }
+    }
+
 
     function scrollToBottom() {
         const chatHistory = document.getElementById(HtmlTemplate.ID_CHAT_HISTORY);
