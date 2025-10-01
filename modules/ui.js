@@ -42,15 +42,26 @@
     }
 
     function appendBotMessage(messageText) {
-        const div = document.createElement('div');
-        div.className = `chat-message bot-message`;
-        div.innerText = messageText;
+        const div = getNewBotMessage(messageText);
         document.getElementById(HtmlTemplate.ID_CHAT_HISTORY).appendChild(div);
         scrollToBottom();
         return div;
     }
 
+    function getNewBotMessage(messageText) {
+        const div = document.createElement('div');
+        div.className = `chat-message bot-message`;
+        div.innerText = messageText;
+        return div;
+    }
+
     function appendToolMessage(content) {
+        const message = getNewToolMessage(content);
+        document.querySelector(`#${HtmlTemplate.ID_CHAT_HISTORY}`).appendChild(message);
+        scrollToBottom();
+    }
+
+    function getNewToolMessage(content) {
         const message = document.createElement('div');
         message.className = "chat-message bot-message tool tool-collapsed";
 
@@ -69,9 +80,7 @@
 
         message.appendChild(toggle);
         message.appendChild(toolContent);
-
-        document.querySelector(`#${HtmlTemplate.ID_CHAT_HISTORY}`).appendChild(message);
-        scrollToBottom();
+        return message;
     }
 
     function scrollToBottom() {
@@ -84,6 +93,8 @@
         initializeSidebar,
         appendUserMessage,
         appendBotMessage,
-        appendToolMessage
+        appendToolMessage,
+        getNewBotMessage,
+        getNewToolMessage
     };
 })();

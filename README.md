@@ -30,7 +30,6 @@ Install Tampermonkey for your browser:
 
 1. Open Tampermonkey Dashboard
 2. Click "Create a new script"
-3. Paste in your `main.user.js`
 4. Include required modules via `@require`:
 
 ```js
