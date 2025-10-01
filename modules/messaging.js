@@ -2,9 +2,9 @@
     const ASSISTANT_ROLE = "ASSISTANT"
     const TOOL_ROLE = "TOOL";
 
-    async function streamBotResponse(backendUrl, sessionId, query, uiAppendBotMsg) {
+    async function streamBotResponse(backendUrl, sessionId, query) {
         // Insert placeholder
-        const tempLoadingMsgElem = uiAppendBotMsg("");
+        const tempLoadingMsgElem = UI.getNewLoadingMessage();
         
         // Animate placeholder
         const animationFrames = ["⣾","⣽","⣻","⢿","⡿","⣟","⣯","⣷"];

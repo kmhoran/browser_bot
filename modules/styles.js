@@ -49,6 +49,9 @@
             text-align: left;
             color: #00ffff;
         }
+        .bot-message.loading {
+            color: #ffffff;
+        }
 
         .bot-message.assistant {
             background: rgba(0, 255, 255, 0.05);

@@ -55,6 +55,13 @@
         return div;
     }
 
+    function getNewLoadingMessage() {
+        const div = document.createElement('div');
+        div.className = `chat-message bot-message loading`;
+        div.innerText = '';
+        return div;
+    }
+
     function appendToolMessage(content) {
         const message = getNewToolMessage(content);
         document.querySelector(`#${HtmlTemplate.ID_CHAT_HISTORY}`).appendChild(message);
@@ -95,6 +102,7 @@
         appendBotMessage,
         appendToolMessage,
         getNewBotMessage,
-        getNewToolMessage
+        getNewToolMessage,
+        getNewLoadingMessage
     };
 })();
