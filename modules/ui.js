@@ -52,6 +52,7 @@
         const div = document.createElement('div');
         div.className = `chat-message bot-message`;
         div.innerText = messageText;
+        document.getElementById(HtmlTemplate.ID_CHAT_HISTORY).appendChild(div);
         return div;
     }
 
