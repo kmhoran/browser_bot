@@ -71,8 +71,6 @@
     }
 
     window.Core = {
-        init,
-        backendUrl,
-        userId
+        init
     };
 })();
