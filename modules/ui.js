@@ -60,6 +60,7 @@
         div.className = `chat-message bot-message loading`;
         div.innerText = '';
         document.getElementById(HtmlTemplate.ID_CHAT_HISTORY).appendChild(div);
+        scrollToBottom();
         return div;
     }
 
