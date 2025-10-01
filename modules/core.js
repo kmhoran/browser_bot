@@ -1,17 +1,15 @@
 (function () {
-    // const BACKEND_URL = "http://127.0.0.1:8000";
-    // const USER_ID = "SynthBot";
-    let BACKEND_URL = '';
-    let USER_ID = '';
+    let backendUrl = '';
+    let userId = '';
     const PROFILE_SLUG = "CHEF_SIMPLE_COMMAND";
     
     const HOTKEY = { ctrlKey: true, key: "\\" };
 
     let sessionId = null;
 
-    async function init(backendUrl, userId) {
-        BACKEND_URL = backendUrl;
-        USER_ID = userId;
+    async function init(backendUrlInput, userIdInput) {
+        backendUrl = backendUrlInput;
+        userId = userIdInput;
         UI.initializeSidebar(
             HtmlTemplate.html,
             Styles.getStyle(),
@@ -22,7 +20,7 @@
                 onToggleContext: handleToggleContext,
                 onHotkey: handleHotkey,
                 onInit: async () => {
-                    sessionId = await Session.startSession(BACKEND_URL, PROFILE_SLUG, USER_ID);
+                    sessionId = await Session.startSession(backendUrl, PROFILE_SLUG, userId);
                 }
             }
         );
@@ -53,7 +51,7 @@
             query = `${query} :: ${desc}: ${PageContext.getPageContext()}`;
         }
 
-        await Messaging.streamBotResponse(BACKEND_URL, sessionId, query, UI.appendBotMessage);
+        await Messaging.streamBotResponse(backendUrl, sessionId, query, UI.appendBotMessage);
     }
 
     function handleToggleContext(e) {
@@ -73,6 +71,8 @@
     }
 
     window.Core = {
-        init
+        init,
+        backendUrl,
+        userId
     };
 })();
