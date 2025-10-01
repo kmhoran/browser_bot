@@ -1,13 +1,17 @@
 (function () {
     // const BACKEND_URL = "http://127.0.0.1:8000";
     // const USER_ID = "SynthBot";
+    let BACKEND_URL = '';
+    let USER_ID = '';
     const PROFILE_SLUG = "CHEF_SIMPLE_COMMAND";
     
     const HOTKEY = { ctrlKey: true, key: "\\" };
 
     let sessionId = null;
 
-    async function init(BACKEND_URL, USER_ID) {
+    async function init(backendUrl, userId) {
+        BACKEND_URL = backendUrl;
+        USER_ID = userId;
         UI.initializeSidebar(
             HtmlTemplate.html,
             Styles.getStyle(),
