@@ -61,7 +61,7 @@
         .bot-message.tool {
             background: rgba(0, 255, 255, 0.03);
             border-left: 3px solid #004d4d;
-            padding: 6px 12px;
+            padding: 9px 12px;
             margin-bottom: 8px;
             font-size: 12px;
             color: #66ffff;
@@ -71,7 +71,7 @@
 
         .tool-toggle {
             position: absolute;
-            top: 6px;
+            top: 0px;
             right: 10px;
             cursor: pointer;
             color: #0ff;
