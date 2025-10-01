@@ -7,7 +7,7 @@
 
     let sessionId = null;
 
-    async function init() {
+    async function init(BACKEND_URL, USER_ID) {
         UI.initializeSidebar(
             HtmlTemplate.html,
             Styles.getStyle(),
