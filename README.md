@@ -50,6 +50,7 @@ Install Tampermonkey for your browser:
 // @require      https://raw.githubusercontent.com/kmhoran/browser_bot/refs/heads/main/modules/session.js
 // @require      https://raw.githubusercontent.com/kmhoran/browser_bot/refs/heads/main/modules/styles.js
 // @require      https://raw.githubusercontent.com/kmhoran/browser_bot/refs/heads/main/modules/ui.js
+// @require      https://raw.githubusercontent.com/kmhoran/browser_bot/refs/heads/main/modules/state.js
 // ==/UserScript==
 
 (function () {
