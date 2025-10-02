@@ -4,6 +4,8 @@
         container.innerHTML = htmlString;
         document.body.appendChild(container);
 
+        applySavedUIPosture(handlers);
+
         // Apply styles
         if (typeof GM_addStyle === 'function') {
             GM_addStyle(styleString);
@@ -31,6 +33,21 @@
 
         // Start session after UI is ready
         handlers.onInit();
+    }
+
+    function applySavedUIPosture(handlers){
+        const uiPosture = AppState.getUIPosture();
+
+        // default: collapsed
+        if (!uiPosture.collapsed) {
+            handlers.onOpen();
+        }
+
+        const pageContextSwitch = document.getElementById(HtmlTemplate.ID_TOGGLE_CONTEXT);
+        pageContextSwitch.checked = uiPosture.sendPageContext;
+        handlers.onToggleContext({target: pageContextSwitch})
+
+        document.getElementById(HtmlTemplate.ID_CONTEXT_SELECT).value = uiPosture.pageContextFormat
     }
 
     function appendUserMessage(message) {
